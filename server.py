@@ -1,30 +1,39 @@
 from flask import Flask, request, jsonify
+from PIL import Image
+import io
+from KNN import classify_image
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/classify", methods=["POST"])
 def classify():
     try:
-        data = request.get_json()
+        print("FILES:", request.files)
+        print("FORM:", request.form)
+        if "image" not in request.files:
+            return jsonify({"error": "Missing 'image' in form-data"}), 400
 
-        if not data or "text" not in data:
-            return jsonify({"error": "Missing 'text' in request body"}), 400
+        file = request.files["image"]
 
-        text = data["text"]
+        if file.filename == "":
+            return jsonify({"error": "Empty filename"}), 400
 
-        # Dummy classifier logic (replace with your model)
-        if "cat" in text.lower():
-            label = "animal"
-        elif "car" in text.lower():
-            label = "vehicle"
-        else:
-            label = "unknown"
+        # Load image with Pillow
+        img = Image.open(file.stream)
+
+        # Dummy classification logic (replace with ML model)
+        class_str = classify_image(img)
 
         return jsonify({
-            "input": text,
-            "label": label
+            "filename": file.filename,
+            "class": class_str
         })
+
     except Exception as e:
+        import traceback
+        traceback.print_exc() 
         return jsonify({"error": str(e)}), 500
 
 
