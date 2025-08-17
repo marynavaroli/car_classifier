@@ -1,3 +1,4 @@
+import sys
 import os
 import math
 from PIL import Image
@@ -12,11 +13,14 @@ from sklearn.feature_selection import RFE
 from skimage import io
 from sklearn.decomposition import PCA
 from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
 
 # Path to folder containing images
 folder_path1 = "Cars Dataset/train/Audi"
 folder_path2 = "Cars Dataset/train/Hyundai Creta"
 folder_path3 = "Cars Dataset/train/Toyota Innova"
+
+label_dict = ["Audi", "Hyundai", "Toyota"]
 
 # Target size (all images will be resized to match)
 target_size = (200, 150)  # (width, height)
@@ -69,3 +73,25 @@ print(len(training_labels))
 classifier = KNeighborsClassifier(n_neighbors = 1)
 classifier.fit(training_data, training_labels)
 scoreValidation = (classifier.score(validation_data, validation_labels))
+
+def transform_image(image):
+    if image is None:
+        raise ValueError("No image provided to transform_image")
+    target_size = (200, 150)  # (width, height)
+    test_array = []
+    img = image.convert('RGB')  # RGB keeps 3 channels
+    img = img.resize(target_size) 
+    test_array = np.array(img)
+    print(test_array)
+    h, w, c = test_array.shape
+    test_reshaped = test_array.reshape(1, h * w * c) / 255.0
+    return test_reshaped
+
+def classify_image(image):
+    print(image)
+    image_reshaped = transform_image(image)
+    print(image_reshaped)
+    prediction = classifier.predict(image_reshaped)
+    print(prediction)
+    prediction_str = label_dict[prediction[0]]
+    return prediction_str
