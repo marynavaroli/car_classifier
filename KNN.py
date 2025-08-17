@@ -15,7 +15,7 @@ folder_path3 = "Cars Dataset/train/Toyota Innova"
 label_dict = ["Audi", "Hyundai", "Toyota"]
 
 # Target size (all images will be resized to match)
-target_size = (100, 75)  # (width, height)
+target_size = (150, 125)  # (width, height)
 
 images = []
 labels = []
