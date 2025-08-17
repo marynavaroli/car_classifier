@@ -5,7 +5,7 @@ from KNN import classify_image
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "https://marynavaroli.github.io"}})
 
 @app.route("/classify", methods=["POST"])
 def classify():
