@@ -15,7 +15,7 @@ folder_path3 = "Cars Dataset/train/Toyota Innova"
 label_dict = ["Audi", "Hyundai", "Toyota"]
 
 # Target size (all images will be resized to match)
-target_size = (150, 125)  # (width, height)
+target_size = (100, 75)  # (width, height)
 
 images = []
 labels = []
@@ -69,7 +69,6 @@ scoreValidation = (classifier.score(validation_data, validation_labels))
 def transform_image(image):
     if image is None:
         raise ValueError("No image provided to transform_image")
-    target_size = (150, 125)  # (width, height)
     test_array = []
     img = image.convert('RGB')  # RGB keeps 3 channels
     img = img.resize(target_size) 
