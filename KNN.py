@@ -3,9 +3,6 @@ import math
 from PIL import Image
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler
-from sklearn.feature_selection import RFE
 from skimage import io
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier

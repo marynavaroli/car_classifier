@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 from PIL import Image
-import io
 from KNN import classify_image
 from flask_cors import CORS
 
