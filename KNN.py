@@ -24,7 +24,7 @@ for filename in os.listdir(folder_path1):
         img_path = os.path.join(folder_path1, filename)
         img = Image.open(img_path).convert('RGB')  # RGB keeps 3 channels
         img = img.resize(target_size)              # Ensure consistent size
-        img_array = np.array(img)                  # Shape: (H, W, 3)
+        img_array = np.array(img, dtype=np.float32)                 # Shape: (H, W, 3)
         images.append(img_array)
         labels.append(0)
 
@@ -33,7 +33,7 @@ for filename in os.listdir(folder_path2):
         img_path = os.path.join(folder_path2, filename)
         img = Image.open(img_path).convert('RGB')  # RGB keeps 3 channels
         img = img.resize(target_size)              # Ensure consistent size
-        img_array = np.array(img)                  # Shape: (H, W, 3)
+        img_array = np.array(img, dtype=np.float32)                 # Shape: (H, W, 3)
         images.append(img_array)
         labels.append(1)
 
@@ -42,13 +42,13 @@ for filename in os.listdir(folder_path3):
         img_path = os.path.join(folder_path3, filename)
         img = Image.open(img_path).convert('RGB')  # RGB keeps 3 channels
         img = img.resize(target_size)              # Ensure consistent size
-        img_array = np.array(img)                  # Shape: (H, W, 3)
+        img_array = np.array(img, dtype=np.float32)                  # Shape: (H, W, 3)
         images.append(img_array)
         labels.append(2)
 
 #print(labels)
 # Convert to 4D NumPy array: (num_images, height, width, channels)
-images_array = np.array(images)
+images_array = np.array(images, dtype=np.float32) 
 n, h, w, c = images_array.shape
 print(images_array.shape) 
 #print(images_array)
@@ -73,7 +73,7 @@ def transform_image(image):
     test_array = []
     img = image.convert('RGB')  # RGB keeps 3 channels
     img = img.resize(target_size) 
-    test_array = np.array(img)
+    test_array = np.array(img, dtype=np.float32) 
     print(test_array)
     h, w, c = test_array.shape
     test_reshaped = test_array.reshape(1, h * w * c) / 255.0
