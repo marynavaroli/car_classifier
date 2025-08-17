@@ -5,9 +5,9 @@ from KNN import classify_image
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://marynavaroli.github.io"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
-@app.route("/classify", methods=["POST"])
+@app.route("/classify", methods=["POST", "OPTIONS"])
 def classify():
     try:
         print("FILES:", request.files)
