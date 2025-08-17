@@ -5,7 +5,7 @@ from KNN import classify_image
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True)
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 @app.route("/classify", methods=["POST", "OPTIONS"])
 def classify():
@@ -13,7 +13,7 @@ def classify():
         if request.method == "OPTIONS":
             # Preflight request
             return jsonify({"status": "ok"}), 200
-            
+
         print("FILES:", request.files)
         print("FORM:", request.form)
         if "image" not in request.files:
