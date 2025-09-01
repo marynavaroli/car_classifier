@@ -39,11 +39,13 @@ class ResNet18_64(nn.Module):
 
 cnn_model = ResNet18_64(num_classes=8)
 cnn_model.load_state_dict(torch.load("ResNet18_19e_73a_state", map_location="cpu"))
+print("model loaded")
 cnn_model.eval()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 cnn_model = cnn_model.to(device)
 
 def get_cnn_prediction(image):
+    print("get cnn pred called")
     input_tensor = transform(image).unsqueeze(0) 
     input_tensor = input_tensor.to(device)
     with torch.no_grad():
