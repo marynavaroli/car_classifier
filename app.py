@@ -81,39 +81,6 @@ def predict():
         import traceback
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500
-    
-@app.route("/CNN", methods=["POST", "OPTIONS"])
-def cnn():
-    try:
-        if request.method == "OPTIONS":
-            # Preflight request
-            return jsonify({"status": "ok"}), 200
-
-        print("FILES:", request.files)
-        print("FORM:", request.form)
-        if "image" not in request.files:
-            return jsonify({"error": "Missing 'image' in form-data"}), 400
-
-        file = request.files["image"]
-
-        if file.filename == "":
-            return jsonify({"error": "Empty filename"}), 400
-
-        # Load image with Pillow
-        img = Image.open(file.stream)
-
-        # Dummy classification logic (replace with ML model)
-        class_str = get_cnn_prediction(img)
-
-        return jsonify({
-            "filename": file.filename,
-            "class": class_str
-        })
-
-    except Exception as e:
-        import traceback
-        traceback.print_exc() 
-        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == "__main__":
