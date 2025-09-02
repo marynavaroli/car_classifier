@@ -7,7 +7,6 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
-
 @app.route("/predict", methods=["POST", "OPTIONS"])
 def predict():
     try:
@@ -52,6 +51,7 @@ def predict():
 @app.route("/CNN", methods=["POST", "OPTIONS"])
 def cnn():
     try:
+        print("start cnn")
         if request.method == "OPTIONS":
             # Preflight request
             return jsonify({"status": "ok"}), 200
@@ -71,6 +71,7 @@ def cnn():
 
         # Dummy classification logic (replace with ML model)
         class_str = get_cnn_prediction(img)
+        print("after get method")
 
         return jsonify({
             "filename": file.filename,
