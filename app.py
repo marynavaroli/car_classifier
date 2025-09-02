@@ -51,21 +51,27 @@ def predict():
 @app.route("/CNN", methods=["POST", "OPTIONS"])
 def cnn():
     try:
+        print("start cnn")
         if request.method == "OPTIONS":
+            # Preflight request
             return jsonify({"status": "ok"}), 200
 
+        print("FILES:", request.files)
+        print("FORM:", request.form)
         if "image" not in request.files:
             return jsonify({"error": "Missing 'image' in form-data"}), 400
 
         file = request.files["image"]
+
         if file.filename == "":
             return jsonify({"error": "Empty filename"}), 400
 
-        # Load image
-        img = Image.open(file.stream).convert("RGB")
+        # Load image with Pillow
+        img = Image.open(file.stream)
 
-        # Get prediction
+        # Dummy classification logic (replace with ML model)
         class_str = get_cnn_prediction(img)
+        print("after get method")
 
         return jsonify({
             "filename": file.filename,
@@ -74,7 +80,7 @@ def cnn():
 
     except Exception as e:
         import traceback
-        traceback.print_exc()
+        traceback.print_exc() 
         return jsonify({"error": str(e)}), 500
 
 
