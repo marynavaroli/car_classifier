@@ -43,9 +43,12 @@ print("model loaded")
 cnn_model.eval()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 cnn_model = cnn_model.to(device)
+print("before get")
 
 def get_cnn_prediction(image):
     print("get cnn pred called")
+    if cnn_model is None:
+        return "Model not loaded"
     input_tensor = transform(image).unsqueeze(0) 
     input_tensor = input_tensor.to(device)
     with torch.no_grad():
