@@ -34,9 +34,6 @@ class MobileNetV2_128(nn.Module):
     def forward(self, x):
         return self.model(x)
 
-# usage
-cnn_model = MobileNetV2_128(num_classes=8)
-
 cnn_model = MobileNetV2_128(num_classes=8)
 cnn_model.load_state_dict(torch.load("mobilenetv2_car_classifier.pth", map_location="cpu"))
 print("model loaded")
