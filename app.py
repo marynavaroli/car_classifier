@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from PIL import Image
 from BaggingRegressor import get_prediction
 from CNN import get_cnn_prediction
+from KNN import classify_image
 from flask_cors import CORS
 
 app = Flask(__name__)
