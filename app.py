@@ -85,6 +85,7 @@ def predict():
 @app.route("/cnn", methods=["POST", "OPTIONS"])
 def cnn():
     try:
+        print("CNN route hit") 
         if request.method == "OPTIONS":
             # Preflight request
             return jsonify({"status": "ok"}), 200
@@ -101,10 +102,11 @@ def cnn():
 
         # Load image with Pillow
         img = Image.open(file.stream)
+        print("image opened") 
 
         # Dummy classification logic (replace with ML model)
         class_str = get_cnn_prediction(img)
-
+        print("get called")
         return jsonify({
             "filename": file.filename,
             "class": class_str
